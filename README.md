@@ -386,12 +386,12 @@ Timestamp,Glucose (mg/dL),Status,Condition
 ╔══════════════════════════════════════════════╗
 ║   GLUCOSE MONITORING REPORT                  ║
 ║   Patient: John Doe                          ║
-║   Export Date: 2025-12-14 16:30:22          ║
+║   Export Date: 2025-12-14 16:30:22           ║
 ╠══════════════════════════════════════════════╣
 ║   STATISTICS SUMMARY                         ║
-║   Average: 142.5 mg/dL                      ║
-║   Median: 142.5 mg/dL                       ║
-║   Min: 95.0 mg/dL | Max: 185.0 mg/dL       ║
+║   Average: 142.5 mg/dL                       ║
+║   Median: 142.5 mg/dL                        ║
+║   Min: 95.0 mg/dL | Max: 185.0 mg/dL         ║
 ╠══════════════════════════════════════════════╣
 ║   READINGS TABLE                             ║
 ║   [Last 50 readings with timestamp,          ║
