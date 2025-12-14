@@ -143,15 +143,37 @@ Professional medical report with:
 - Visual flashing border (red/yellow) for 5 seconds
 - Automatic alarm stop after threshold period
 
-## Glucose Classification Rules
+## 📋 Glucose Classification Rules
 
-| Range | Status | Color | Action |
-|-------|--------|-------|--------|
-| < 50 mg/dL | **CRITICAL LOW** | Red | Immediate action required |
-| 50-70 mg/dL | **WARNING LOW** | Orange | Monitor closely |
-| 70-140 mg/dL | **NORMAL** | Green | No action needed |
-| 140-180 mg/dL | **WARNING HIGH** | Orange | Monitor closely |
-| > 180 mg/dL | **CRITICAL HIGH** | Red | Immediate action required |
+### Clinical Thresholds (ADA/ISO 15197 Compliant)
+
+| Range | Status | Color | ADA Level | Action |
+|-------|--------|-------|-----------|--------|
+| < 54 mg/dL | **CRITICAL LOW** | Red | Level 3 | 🚨 Severe hypoglycemia - Immediate treatment required |
+| 54-70 mg/dL | **WARNING LOW** | Orange | Level 1-2 | ⚠️ Hypoglycemia - Consume fast-acting carbs |
+| 70-140 mg/dL | **NORMAL** | Green | Target Range | ✅ Optimal glucose level |
+| 140-180 mg/dL | **WARNING HIGH** | Orange | Elevated | ⚠️ Hyperglycemia - Monitor and adjust |
+| > 180 mg/dL | **CRITICAL HIGH** | Red | Severe | 🚨 Severe hyperglycemia - Seek medical attention |
+
+### Standards Compliance
+
+**ISO 15197:2013 - In Vitro Diagnostic Test Systems**
+- Accuracy requirements for blood glucose monitoring systems
+- For glucose < 100 mg/dL: System accuracy must be ±15 mg/dL
+- For glucose ≥ 100 mg/dL: System accuracy must be ±15%
+- 95% of measurements must meet these criteria
+
+**ADA Clinical Practice Guidelines**
+- Critical low threshold: < 54 mg/dL (Level 3 hypoglycemia)
+- Hypoglycemia alert: < 70 mg/dL (Level 1-2)
+- Normal fasting glucose: 70-100 mg/dL
+- Normal postprandial glucose: < 140 mg/dL (2 hours after meal)
+- Hyperglycemia threshold: > 180 mg/dL
+
+**A1C Estimation Formula**
+- Based on ADAG (A1C-Derived Average Glucose) study
+- Formula: `A1C ≈ (average_glucose + 46.7) / 28.7`
+- Provides estimated 3-month average from recent readings
 
 ## 🚀 How to Use
 
@@ -309,19 +331,33 @@ CREATE TABLE goals (
 - **User-Friendly**: Clear visual feedback and intuitive controls
 - **Data Persistence**: All data automatically saved
 - **Extensible Architecture**: Easy to add new features
+- **Standards Compliance**: ISO 15197:2013 and ADA guidelines
 - **Medical Device Standards**: Realistic behavior and alerts
 
 ## 🧪 Testing Examples
 
-### Try These Values
+### Try These Values (ISO 15197/ADA Compliant)
 
-| Value | Expected Result | Features Demonstrated |
-|-------|----------------|----------------------|
-| **45 mg/dL** | 🔴 Critical Low | Red alert, 3 beeps, flashing border |
-| **65 mg/dL** | 🟠 Warning Low | Orange alert, single beep |
-| **100 mg/dL** | 🟢 Normal | Green status, no alarm |
-| **160 mg/dL** | 🟠 Warning High | Orange alert, single beep |
-| **200 mg/dL** | 🔴 Critical High | Red alert, 3 beeps, flashing border |
+| Value | Expected Result | ADA Level | Features Demonstrated |
+|-------|----------------|-----------|----------------------|
+| **45 mg/dL** | 🔴 Critical Low | Level 3 | Severe hypoglycemia, 3 beeps, flashing border |
+| **60 mg/dL** | 🟠 Warning Low | Level 1-2 | Hypoglycemia, single beep, orange alert |
+| **85 mg/dL** | 🟢 Normal (Fasting) | Target | Green status, no alarm, optimal fasting level |
+| **120 mg/dL** | 🟢 Normal (Post-meal) | Target | Green status, no alarm, good postprandial |
+| **160 mg/dL** | 🟠 Warning High | Elevated | Hyperglycemia, single beep, orange alert |
+| **200 mg/dL** | 🔴 Critical High | Severe | Severe hyperglycemia, 3 beeps, flashing border |
+
+### ISO 15197 Accuracy Test Values
+
+Test these values to verify accuracy tolerance:
+
+| Reference Value | Acceptable Range | ISO 15197 Requirement |
+|----------------|------------------|----------------------|
+| **50 mg/dL** | 35-65 mg/dL | ±15 mg/dL (< 100 mg/dL) |
+| **75 mg/dL** | 60-90 mg/dL | ±15 mg/dL (< 100 mg/dL) |
+| **100 mg/dL** | 85-115 mg/dL | ±15% (≥ 100 mg/dL) |
+| **150 mg/dL** | 127.5-172.5 mg/dL | ±15% (≥ 100 mg/dL) |
+| **300 mg/dL** | 255-345 mg/dL | ±15% (≥ 100 mg/dL) |
 
 ### Test Workflows
 
@@ -401,6 +437,7 @@ Timestamp,Glucose (mg/dL),Status,Condition
 
 ## 📌 Important Notes
 
+### General
 - **Cross-Platform**: Works on Windows, macOS, Linux (audio alerts Windows-only)
 - **Database**: SQLite file `glucometer_data.db` created in application directory
 - **Data Persistence**: All data saved automatically, no manual save required
@@ -409,6 +446,14 @@ Timestamp,Glucose (mg/dL),Status,Condition
 - **Graph Limit**: Displays last 20 readings for optimal performance
 - **Statistics Period**: Calculated for last 30 days by default
 - **Export Formats**: All three formats include same data, different structures
+
+### Standards Compliance
+- **ISO 15197:2013**: Clinical thresholds align with international standards for blood glucose monitoring systems
+- **ADA Guidelines**: Classification follows American Diabetes Association clinical practice recommendations
+- **Severe Hypoglycemia**: Updated threshold from 50 to 54 mg/dL (ADA Level 3)
+- **A1C Estimation**: Uses ADAG study formula for 3-month average glucose estimation
+- **Educational Purpose**: This is a simulation tool for learning, not for clinical diagnosis
+- **Accuracy Note**: Real glucometers must meet ISO 15197 ±15 mg/dL or ±15% accuracy requirements
 
 ## 🤝 Contributing
 

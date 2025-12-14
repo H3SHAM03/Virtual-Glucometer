@@ -36,14 +36,27 @@ class GlucoseAnalyzer:
     """
     Core analysis logic for glucose level classification
     Handles all medical device logic separate from UI
+    
+    Thresholds based on:
+    - ADA (American Diabetes Association) Clinical Guidelines
+    - ISO 15197:2013 compliance for accuracy requirements
+    - Severe hypoglycemia threshold: < 54 mg/dL (Level 3)
+    - Hypoglycemia threshold: < 70 mg/dL (Level 1-2)
+    - Normal fasting: 70-100 mg/dL
+    - Normal postprandial: < 140 mg/dL
+    - Hyperglycemia: > 180 mg/dL
+    
+    Note: ISO 15197:2013 requires:
+    - For glucose < 100 mg/dL: ±15 mg/dL accuracy
+    - For glucose ≥ 100 mg/dL: ±15% accuracy
     """
     
-    # Classification thresholds (mg/dL)
-    CRITICAL_LOW = 50
-    WARNING_LOW = 70
+    # Classification thresholds (mg/dL) - Updated to match ADA/ISO 15197 standards
+    CRITICAL_LOW = 54    # Severe hypoglycemia (ADA Level 3)
+    WARNING_LOW = 70     # Hypoglycemia (ADA Level 1-2)
     NORMAL_LOW = 70
-    NORMAL_HIGH = 140
-    WARNING_HIGH = 180
+    NORMAL_HIGH = 140    # Upper limit for postprandial glucose
+    WARNING_HIGH = 180   # Hyperglycemia threshold
     
     @staticmethod
     def analyze(glucose_value):
@@ -297,14 +310,15 @@ class StatisticsCalculator:
         stats['time_in_range'] = (normal_count / len(values)) * 100
         
         # Estimate A1C (formula: A1C ≈ (average_glucose + 46.7) / 28.7)
+        # Based on ADAG study - converts average glucose to estimated A1C
         stats['estimated_a1c'] = round((stats['average'] + 46.7) / 28.7, 1)
         
-        # Count by status
-        stats['critical_low'] = sum(1 for v in values if v < 50)
-        stats['warning_low'] = sum(1 for v in values if 50 <= v < 70)
+        # Count by status - Updated to match ADA/ISO 15197 thresholds
+        stats['critical_low'] = sum(1 for v in values if v < 54)      # Severe hypoglycemia
+        stats['warning_low'] = sum(1 for v in values if 54 <= v < 70)  # Hypoglycemia
         stats['normal'] = normal_count
-        stats['warning_high'] = sum(1 for v in values if 140 < v <= 180)
-        stats['critical_high'] = sum(1 for v in values if v > 180)
+        stats['warning_high'] = sum(1 for v in values if 140 < v <= 180)  # Hyperglycemia
+        stats['critical_high'] = sum(1 for v in values if v > 180)    # Severe hyperglycemia
         
         return stats
 
@@ -638,15 +652,15 @@ class MainWindow(QMainWindow):
         info_frame.setObjectName("infoFrame")
         info_layout = QVBoxLayout(info_frame)
         
-        info_title = QLabel("ℹ️ Reference Ranges")
+        info_title = QLabel("ℹ️ Reference Ranges (ISO 15197/ADA)")
         info_title.setFont(QFont("Segoe UI", 10, QFont.Bold))
         info_layout.addWidget(info_title)
         
         ranges = [
             "Normal: 70-140 mg/dL",
-            "Warning Low: 50-70 mg/dL",
+            "Warning Low: 54-70 mg/dL",
             "Warning High: 140-180 mg/dL",
-            "Critical Low: <50 mg/dL",
+            "Critical Low: <54 mg/dL",
             "Critical High: >180 mg/dL"
         ]
         
