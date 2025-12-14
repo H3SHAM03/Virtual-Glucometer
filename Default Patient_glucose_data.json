@@ -1,0 +1,54 @@
+{
+    "patient_name": "Default Patient",
+    "export_date": "2025-12-14 16:41:00",
+    "readings": [
+        {
+            "timestamp": "2025-12-14 16:30:52",
+            "glucose_value": 110.0,
+            "status": "NORMAL",
+            "condition": "Normal"
+        },
+        {
+            "timestamp": "2025-12-14 16:30:50",
+            "glucose_value": 150.0,
+            "status": "WARNING HIGH",
+            "condition": "Normal"
+        },
+        {
+            "timestamp": "2025-12-14 16:30:48",
+            "glucose_value": 140.0,
+            "status": "NORMAL",
+            "condition": "Normal"
+        },
+        {
+            "timestamp": "2025-12-14 16:30:46",
+            "glucose_value": 90.0,
+            "status": "NORMAL",
+            "condition": "Normal"
+        },
+        {
+            "timestamp": "2025-12-14 16:30:44",
+            "glucose_value": 130.0,
+            "status": "NORMAL",
+            "condition": "Normal"
+        },
+        {
+            "timestamp": "2025-12-14 16:30:43",
+            "glucose_value": 120.0,
+            "status": "NORMAL",
+            "condition": "Normal"
+        },
+        {
+            "timestamp": "2025-12-14 16:30:41",
+            "glucose_value": 110.0,
+            "status": "NORMAL",
+            "condition": "Normal"
+        },
+        {
+            "timestamp": "2025-12-14 16:30:40",
+            "glucose_value": 100.0,
+            "status": "NORMAL",
+            "condition": "Normal"
+        }
+    ]
+}
